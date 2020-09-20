@@ -119,6 +119,6 @@ pause_button.pack(side=TOP, pady=20)
 
 # Cancel Button
 cancel_button = Button(root, text='Cancel', width=10, command=cancel_download, state='disabled', font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
-cancel_button.pack(side=TOP)
+cancel_button.pack(side=TOP, pady=20)
 
 root.mainloop()
