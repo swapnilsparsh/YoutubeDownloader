@@ -106,7 +106,7 @@ url_entry.pack(side=TOP, fill=X, padx=10)
 url_entry.focus()
 
 # Download Button
-download_button = Button(root, text='Download', width=10, command=start_download, font='verdana', relief='ridge', bd=5, bg='#282828', fg='white')
+download_button = Button(root, text='Download', width=10, command=start_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
 download_button.pack(side=TOP, pady=20)
 
 # Progress
@@ -114,11 +114,11 @@ progress = Label(root)
 progress.pack(side=TOP)
 
 # Pause Button
-pause_button = Button(root, text='Pause', width=10, command=toggle_download, state='disabled', font='verdana', relief='ridge', bd=5, bg='#282828', fg='white')
+pause_button = Button(root, text='Pause', width=10, command=toggle_download, state='disabled', font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
 pause_button.pack(side=TOP, pady=20)
 
 # Cancel Button
-cancel_button = Button(root, text='Cancel', width=10, command=cancel_download, state='disabled', font='verdana', relief='ridge', bd=5, bg='#282828', fg='white')
+cancel_button = Button(root, text='Cancel', width=10, command=cancel_download, state='disabled', font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
 cancel_button.pack(side=TOP)
 
 root.mainloop()
