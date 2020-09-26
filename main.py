@@ -77,7 +77,7 @@ def cancel_download():
 root = Tk()
 root.title("Youtube Downloader")
 root.iconbitmap("main img/icon.ico")
-root.geometry("500x600")
+root.geometry("500x650")
 
 # switch toggle:
 btnState = False
@@ -85,6 +85,10 @@ btnState = False
 # switch images:
 onImg = PhotoImage(file="dark img/switch-on.png")
 offImg = PhotoImage(file="dark img/switch-off.png")
+
+# Copyright
+originalBtn = Button(root, text="Made by Swapnil", font="Rockwell", relief="flat")
+originalBtn.pack(side=BOTTOM)
 
 # Night Mode:
 txt = Label(root, text="Dark Mode: OFF", font="FixedSys 17", bg="#CECCBE", fg="green")
