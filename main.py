@@ -21,7 +21,7 @@ def darkmode():
 is_paused = is_cancelled = False
 
 
-def download_video(url):
+def download_video(url,filename):
     global is_paused, is_cancelled
     download_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
@@ -31,7 +31,7 @@ def download_video(url):
         yt = YouTube(url)
         stream = yt.streams.first()
         filesize = stream.filesize
-        with open('sample.mp4', 'wb') as f:
+        with open(filename, 'wb') as f:
             is_paused = is_cancelled = False
             stream = request.stream(stream.url)
             downloaded = 0
@@ -59,7 +59,10 @@ def download_video(url):
 
 
 def start_download():
-    threading.Thread(target=download_video, args=(url_entry.get(),), daemon=True).start()
+    filename = asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("mp4 files","*.mp4"),("all files","*.*")))
+    if not filename.endswith('.mp4'):
+        filename = filename+'.mp4'
+    threading.Thread(target=download_video, args=(url_entry.get(),filename), daemon=True).start()
 
 
 def toggle_download():
