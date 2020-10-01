@@ -1,6 +1,7 @@
 import threading
 from tkinter.filedialog import *
 from pytube import YouTube, request
+from general import append_to_file
 
 
 # dark mode :
@@ -57,6 +58,28 @@ def download_video(url):
     pause_button['state'] = 'disabled'
     cancel_button['state'] = 'disabled'
 
+    def downloader(video_link, down_dir=None):
+    try:
+        tube = YouTube(video_link)
+        title = tube.title
+        print("Now downloading,  " + str(title))
+        video = tube.streams.filter(progressive=True, file_extension='mp4').first()
+        print('FileSize : ' + str(round(video.filesize/(1024*1024))) + 'MB')
+        # print(tube.streams.filter(progressive=True, file_extension='mp4').first())
+        # Stream(video).on_progress()
+        if down_dir is not None:
+            video.download(down_dir)
+        else:
+            video.download()
+        print("Download complete, " + str(title))
+        caption = tube.captions.get_by_language_code('en')
+        if caption is not None:
+            subtitle = caption.generate_srt_captions()
+            open(title + '.srt', 'w').write(subtitle)
+    except Exception as e:
+        print("ErrorDownloadVideo  |  " + str(video_link))
+        append_to_file('debug', format(e))
+    # FILESIZE print(tube.streams.filter(progressive=True, file_extension='mp4').first().filesize/(1024*1024))
 
 def start_download():
     threading.Thread(target=download_video, args=(url_entry.get(),), daemon=True).start()
