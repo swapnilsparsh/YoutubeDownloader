@@ -59,9 +59,8 @@ def download_video(url,filename):
 
 
 def start_download():
-    filename = asksaveasfilename(initialdir = "/",title = "Select file",filetypes = (("mp4 files","*.mp4"),("all files","*.*")))
-    if not filename.endswith('.mp4'):
-        filename = filename+'.mp4'
+    filename = askdirectory()
+    filename = filename+'/sample.mp4'
     threading.Thread(target=download_video, args=(url_entry.get(),filename), daemon=True).start()
 
 
