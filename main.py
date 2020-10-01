@@ -31,7 +31,45 @@ def download_video(url):
         yt = YouTube(url)
         stream = yt.streams.first()
         filesize = stream.filesize
-        with open('sample.mp4', 'wb') as f:
+        filename = yt.title+'.mp4'
+        with open(filename, 'wb') as f:
+            is_paused = is_cancelled = False
+            stream = request.stream(stream.url)
+            downloaded = 0
+            while True:
+                if is_cancelled:
+                    progress['text'] = 'Download cancelled'
+                    break
+                if is_paused:
+                    continue
+                chunk = next(stream, None)
+                if chunk:
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    progress['text'] = f'Downloaded {downloaded} / {filesize}'
+                else:
+                    # no more data
+                    progress['text'] = 'Download completed'
+                    break
+        print('done')
+    except Exception as e:
+        print(e)
+    download_button['state'] = 'normal'
+    pause_button['state'] = 'disabled'
+    cancel_button['state'] = 'disabled'
+
+def download_audio(url):
+    global is_paused, is_cancelled
+    download_button['state'] = 'disabled'
+    pause_button['state'] = 'normal'
+    cancel_button['state'] = 'normal'
+    try:
+        progress['text'] = 'Connecting ...'
+        yt = YouTube(url)
+        stream = yt.streams.filter(only_audio=True).first()
+        filesize = stream.filesize
+        filename = yt.title+'.mp3'
+        with open(filename, 'wb') as f:
             is_paused = is_cancelled = False
             stream = request.stream(stream.url)
             downloaded = 0
@@ -58,8 +96,11 @@ def download_video(url):
     cancel_button['state'] = 'disabled'
 
 
-def start_download():
+def start_video_download():
     threading.Thread(target=download_video, args=(url_entry.get(),), daemon=True).start()
+
+def start_audio_download():
+    threading.Thread(target=download_audio, args=(url_entry.get(),), daemon=True).start()
 
 
 def toggle_download():
@@ -109,8 +150,12 @@ url_entry = Entry(root, justify=CENTER, bd=5, fg='green')
 url_entry.pack(side=TOP, fill=X, padx=10)
 url_entry.focus()
 
-# Download Button
-download_button = Button(root, text='Download', width=10, command=start_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
+# Download Video Button
+download_button = Button(root, text='Download Video', width=20, command=start_video_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
+download_button.pack(side=TOP, pady=20)
+
+# Download Audio Button
+download_button = Button(root, text='Download Audio', width=20, command=start_audio_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
 download_button.pack(side=TOP, pady=20)
 
 # Progress
