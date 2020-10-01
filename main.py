@@ -21,7 +21,11 @@ def darkmode():
 is_paused = is_cancelled = False
 
 
+<<<<<<< HEAD
+def download_video(url,filelocation):
+=======
 def download_video(url,filename):
+>>>>>>> 1a1011b67666317ad5b7ab46dd9d3b482fba0771
     global is_paused, is_cancelled
     download_video_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
@@ -31,7 +35,8 @@ def download_video(url,filename):
         yt = YouTube(url)
         stream = yt.streams.first()
         filesize = stream.filesize
-        filename = yt.title+'.mp4'
+        #print(filelocation)
+        filename = filelocation+'/'+yt.title+'.mp4'
         with open(filename, 'wb') as f:
             is_paused = is_cancelled = False
             stream = request.stream(stream.url)
@@ -58,7 +63,7 @@ def download_video(url,filename):
     pause_button['state'] = 'disabled'
     cancel_button['state'] = 'disabled'
 
-def download_audio(url):
+def download_audio(url,filelocation):
     global is_paused, is_cancelled
     download_audio_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
@@ -68,7 +73,7 @@ def download_audio(url):
         yt = YouTube(url)
         stream = yt.streams.filter(only_audio=True).first()
         filesize = stream.filesize
-        filename = yt.title+'.mp3'
+        filename = filelocation+'/'+yt.title+'.mp3'
         with open(filename, 'wb') as f:
             is_paused = is_cancelled = False
             stream = request.stream(stream.url)
@@ -97,15 +102,25 @@ def download_audio(url):
 
 
 def start_video_download():
+<<<<<<< HEAD
+    filelocation = askdirectory()
+    threading.Thread(target=download_video, args=(url_entry.get(),filelocation), daemon=True).start()
+=======
     filename = askdirectory()
     filename = filename+'/sample.mp4'
     threading.Thread(target=download_video, args=(url_entry.get(),), daemon=True).start()
+>>>>>>> 1a1011b67666317ad5b7ab46dd9d3b482fba0771
 
 
 def start_audio_download():
+<<<<<<< HEAD
+    filelocation = askdirectory()
+    threading.Thread(target=download_audio, args=(url_entry.get(),filelocation), daemon=True).start()
+=======
     filename = askdirectory()
     filename = filename+'/sample.mp4'
     threading.Thread(target=download_audio, args=(url_entry.get(),), daemon=True).start()
+>>>>>>> 1a1011b67666317ad5b7ab46dd9d3b482fba0771
 
 
 def toggle_download():
