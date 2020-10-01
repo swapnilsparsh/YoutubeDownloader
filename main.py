@@ -21,7 +21,7 @@ def darkmode():
 is_paused = is_cancelled = False
 
 
-def download_video(url):
+def download_video(url,filename):
     global is_paused, is_cancelled
     download_video_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
@@ -97,9 +97,14 @@ def download_audio(url):
 
 
 def start_video_download():
+    filename = askdirectory()
+    filename = filename+'/sample.mp4'
     threading.Thread(target=download_video, args=(url_entry.get(),), daemon=True).start()
 
+
 def start_audio_download():
+    filename = askdirectory()
+    filename = filename+'/sample.mp4'
     threading.Thread(target=download_audio, args=(url_entry.get(),), daemon=True).start()
 
 
