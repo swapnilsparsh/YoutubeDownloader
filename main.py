@@ -23,7 +23,7 @@ is_paused = is_cancelled = False
 
 def download_video(url):
     global is_paused, is_cancelled
-    download_button['state'] = 'disabled'
+    download_video_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
     cancel_button['state'] = 'normal'
     try:
@@ -49,18 +49,18 @@ def download_video(url):
                     progress['text'] = f'Downloaded {downloaded} / {filesize}'
                 else:
                     # no more data
-                    progress['text'] = 'Download completed'
+                    progress['text'] = 'Video Download completed!'
                     break
         print('done')
     except Exception as e:
         print(e)
-    download_button['state'] = 'normal'
+    download_video_button['state'] = 'normal'
     pause_button['state'] = 'disabled'
     cancel_button['state'] = 'disabled'
 
 def download_audio(url):
     global is_paused, is_cancelled
-    download_button['state'] = 'disabled'
+    download_audio_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
     cancel_button['state'] = 'normal'
     try:
@@ -86,12 +86,12 @@ def download_audio(url):
                     progress['text'] = f'Downloaded {downloaded} / {filesize}'
                 else:
                     # no more data
-                    progress['text'] = 'Download completed'
+                    progress['text'] = 'Audio Download completed!'
                     break
         print('done')
     except Exception as e:
         print(e)
-    download_button['state'] = 'normal'
+    download_audio_button['state'] = 'normal'
     pause_button['state'] = 'disabled'
     cancel_button['state'] = 'disabled'
 
@@ -151,12 +151,12 @@ url_entry.pack(side=TOP, fill=X, padx=10)
 url_entry.focus()
 
 # Download Video Button
-download_button = Button(root, text='Download Video', width=20, command=start_video_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
-download_button.pack(side=TOP, pady=20)
+download_video_button = Button(root, text='Download Video', width=20, command=start_video_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
+download_video_button.pack(side=TOP, pady=20)
 
 # Download Audio Button
-download_button = Button(root, text='Download Audio', width=20, command=start_audio_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
-download_button.pack(side=TOP, pady=20)
+download_audio_button = Button(root, text='Download Audio', width=20, command=start_audio_download, font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
+download_audio_button.pack(side=TOP, pady=20)
 
 # Progress
 progress = Label(root)
