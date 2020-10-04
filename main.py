@@ -1,7 +1,10 @@
 import re
 import threading
 from tkinter.filedialog import *
+from tkinter import ttk
 from pytube import YouTube, request
+
+filesize = 0
 
 
 # dark mode :
@@ -24,7 +27,7 @@ is_paused = is_cancelled = False
 
 
 def download_video(url,filelocation):
-    global is_paused, is_cancelled
+    global is_paused, is_cancelled,filesize
     download_video_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
     cancel_button['state'] = 'normal'
@@ -40,8 +43,12 @@ def download_video(url,filelocation):
             stream = request.stream(stream.url)
             downloaded = 0
             while True:
+                pbar["maximum"] = filesize
+                pbar["value"] = downloaded
+                pbar.start()
                 if is_cancelled:
                     progress['text'] = 'Download cancelled'
+                    pbar.stop()
                     break
                 if is_paused:
                     continue
@@ -62,7 +69,7 @@ def download_video(url,filelocation):
     cancel_button['state'] = 'disabled'
 
 def download_audio(url,filelocation):
-    global is_paused, is_cancelled
+    global is_paused, is_cancelled,filesize,downloaded
     download_audio_button['state'] = 'disabled'
     pause_button['state'] = 'normal'
     cancel_button['state'] = 'normal'
@@ -78,8 +85,12 @@ def download_audio(url,filelocation):
             stream = request.stream(stream.url)
             downloaded = 0
             while True:
+                pbar["maximum"] = filesize
+                pbar["value"] = downloaded
+                pbar.start()
                 if is_cancelled:
                     progress['text'] = 'Download cancelled'
+                    pbar.stop()
                     break
                 if is_paused:
                     continue
@@ -124,7 +135,7 @@ def cancel_download():
 root = Tk()
 root.title("Youtube Downloader")
 root.iconbitmap("main img/icon.ico")
-root.geometry("500x650")
+root.geometry("700x780+250+50")
 
 # switch toggle:
 btnState = False
@@ -167,6 +178,10 @@ download_audio_button.pack(side=TOP, pady=20)
 # Progress
 progress = Label(root)
 progress.pack(side=TOP)
+
+#progrss_bar
+pbar = ttk.Progressbar(root,orient = "horizontal",length = filesize,mode = "determinate")
+pbar.pack(side = TOP,fill = X,padx = 20)
 
 # Pause Button
 pause_button = Button(root, text='Pause', width=10, command=toggle_download, state='disabled', font='verdana', relief='ridge', bd=5, bg='#f5f5f5', fg='black')
