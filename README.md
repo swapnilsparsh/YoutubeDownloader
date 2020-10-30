@@ -35,8 +35,13 @@ git clone https://github.com/swapnilsparsh/YoutubeDownloader.git
 3. Install the Package: 
 ```sh
 pip install pytube3
+pip install requests
 ```
-
+If you are facing issue in downloading Music Videos/Audios files then:
+```sh
+Go to your Pytube folder and open extract.py file and go to 301 Line (or something near this line) 
+change the "cipher" -> "signatureCipher"
+```
 4. At last, push in the command:
 ```sh
 python main.py
