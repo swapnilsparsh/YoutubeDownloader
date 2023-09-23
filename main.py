@@ -2,9 +2,24 @@ import re
 import threading
 from tkinter.filedialog import *
 from tkinter import ttk
+import tkinter
 from pytube import YouTube, request
 
 filesize = 0
+
+Button = tkinter.Button
+Label = tkinter.Label
+Entry = tkinter.Entry
+PhotoImage = tkinter.PhotoImage
+TOP = tkinter.TOP
+BOTTOM = tkinter.BOTTOM
+X = tkinter.X
+Y = tkinter.Y
+LEFT = tkinter.LEFT
+RIGHT = tkinter.RIGHT
+CENTER = tkinter.CENTER
+END = tkinter.END
+W = tkinter.W
 
 
 # dark mode :
@@ -132,7 +147,7 @@ def cancel_download():
 
 
 # gui
-root = Tk()
+root = tkinter.Tk()
 root.title("Youtube Downloader")
 root.iconbitmap("main img/icon.ico")
 root.geometry("700x780+250+50")
