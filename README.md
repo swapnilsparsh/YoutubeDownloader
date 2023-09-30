@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/swapnilsparsh/YoutubeDownloader">
-    <img src="https://github.com/swapnilsparsh/YoutubeDownloader/blob/master/main%20img/youtube.png" >
+    <img src="https://i.ibb.co/HNdyZCS/youtube.png" >
   </a>
 
   <h3 align="center">Youtube Downloader</h3>
@@ -32,9 +32,9 @@ Youtube Downloader is a Python Application that can be used to download Youtube 
 git clone https://github.com/swapnilsparsh/YoutubeDownloader.git
 ```
 
-3. Install the Package: 
+3. Install the Packages: 
 ```sh
-pip install pytube3
+pip install --upgrade pytube
 pip install requests
 ```
 If you are facing issue in downloading Music Videos/Audios files then:
